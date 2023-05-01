@@ -50,33 +50,33 @@ namespace AssetEditorTools
 			color = new Color32(150, 150, 150, 255);
 
 			var view = UIView.GetAView();
-			var uiContainer = view.FindUIComponent("FullScreenContainer");
-			var propPanel = uiContainer.Find<UIPanel>("DecorationProperties"); 
-			var propPanelPanel = propPanel.Find<UIScrollablePanel>("Container");
+			var FullScreenContainer = view.FindUIComponent("FullScreenContainer");
+			var DecorationProperties = FullScreenContainer.Find<UIPanel>("DecorationProperties"); 
+			var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
 
-			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(propPanelPanel, 393, 25, "Item Class", 220, 25, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
+			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 393, 25, "Item Class", 220, 25, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
 			m_itemClassDropDownButton = UIButtons.AddButton(m_itemClassDropDown, 191, 20, "Apply", 200, 30, 0.9f, 4);
 			m_itemClassDropDown.triggerButton = m_itemClassDropDownButton;
 			PopulateItemClassDropDown();
-			m_itemClassDropDown.listScrollbar = propPanel.Find<UIScrollbar>("Scrollbar");
+			m_itemClassDropDown.listScrollbar = Container.Find<UIScrollbar>("Scrollbar");
 
-			m_UICategoryDropDown = UIDropDowns.AddLabelledDropDown(propPanelPanel, 393, 25, "UICategory", 220, 25, 0.7f, 20, 8, true, "Category determines the tab an asset will appear under.");
+			m_UICategoryDropDown = UIDropDowns.AddLabelledDropDown(this, 393, 25, "UICategory", 220, 25, 0.7f, 20, 8, true, "Category determines the tab an asset will appear under.");
 			m_UICategoryDropDownButton = UIButtons.AddButton(m_UICategoryDropDown, 0, 0, "Apply", 200, 30, 0.9f, 4);
 			m_UICategoryDropDown.triggerButton = m_UICategoryDropDownButton;
 			PopulateUICategoryDropDown();
-			m_UICategoryDropDown.listScrollbar = propPanel.Find<UIScrollbar>("Scrollbar");
+			m_UICategoryDropDown.listScrollbar = Container.Find<UIScrollbar>("Scrollbar");
 
-			m_UIPriorityTextField = UITextFields.AddLabelledTextField(propPanelPanel, 90, 20, "UIPriority", 200, 22, 1, 4, "Determines the horizontal position inside the group toolstrip.");
+			m_UIPriorityTextField = UITextFields.AddLabelledTextField(this, 90, 20, "UIPriority", 200, 22, 1, 4, "Determines the horizontal position inside the group toolstrip.");
 			PrefabInfo info = ToolsModifierControl.toolController.m_editPrefabInfo;
 			m_UIPriorityTextField.objectUserData = ToolsModifierControl.toolController.m_editPrefabInfo;
 			m_UIPriorityTextField.stringUserData = "m_UIPriority";
 			m_UIPriorityTextField.text = info.m_UIPriority.ToString();
 
-			m_showPropertiesButton = UIButtons.AddButton(propPanelPanel, 324, 25, "Properties", 200, 30, 0.9f, 4, "Properties");
+			m_showPropertiesButton = UIButtons.AddButton(this, 324, 25, "Properties", 200, 30, 0.9f, 4, "Properties");
 
-			m_spritelabel = UILabels.AddLabel(propPanelPanel, 181, 18, "Copy/Paste Sprites", -1, 1, UIHorizontalAlignment.Left, "Duplicates the thumbnail and tooltip used ingame.");
-			m_copy = UIButtons.AddButton(propPanelPanel, 90, 25, "Copy", 200, 30, 0.9f, 4, "Copies the currently loaded asset's tooltip and thumbnail sprites to memory.");			
-			m_paste = UIButtons.AddButton(propPanelPanel, 90, 25, "Paste", 200, 30, 0.9f, 4, "Pastes the tooltip and thumbnail sprites in to memory over the currently loaded asset's.");
+			m_spritelabel = UILabels.AddLabel(this, 181, 18, "Copy/Paste Sprites", -1, 1, UIHorizontalAlignment.Left, "Duplicates the thumbnail and tooltip used ingame.");
+			m_copy = UIButtons.AddButton(this, 90, 25, "Copy", 200, 30, 0.9f, 4, "Copies the currently loaded asset's tooltip and thumbnail sprites to memory.");			
+			m_paste = UIButtons.AddButton(this, 90, 25, "Paste", 200, 30, 0.9f, 4, "Pastes the tooltip and thumbnail sprites in to memory over the currently loaded asset's.");
 			m_paste.state = UIButton.ButtonState.Disabled;
 
 			gameObject.AddComponent<EditorController>();
