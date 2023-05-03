@@ -1,0 +1,26 @@
+﻿using ColossalFramework.UI;
+using AssetEditorTools.UI;
+
+namespace AssetEditorTools
+{
+	public class ShowPropertiesPanel : UIPanel
+	{
+		public UIButton m_showPropertiesButton;
+
+		public override void Start() 
+		{ 
+			base.Start();
+
+			backgroundSprite = "SubcategoriesPanel";
+			clipChildren = true;
+
+			width = 393;
+			height = 25;
+
+			m_showPropertiesButton = UIButtons.AddButton(this, 324, 25, "Properties", 200, 30, 0.9f, 4, "Properties");
+
+			gameObject.AddComponent<EditorController>();
+		}
+
+	}
+}

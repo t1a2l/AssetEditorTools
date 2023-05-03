@@ -12,27 +12,34 @@ namespace AssetEditorTools
 		private UIView m_view;
 		private bool m_onchange;
 
-		private AssetEditorToolsPanel assetEditorToolsPanel;
-
+		private ItemClassPanel ItemClassPanel;
+		private UICategoryPanel UICategoryPanel;
+		private UIPriorityPanel UIPriorityPanel;
+		private ShowPropertiesPanel ShowPropertiesPanel;
+		private SpritePanel SpritePanel;
 
 		public void Start() 
 		{
 			m_view = UIView.GetAView();
 
-			assetEditorToolsPanel = m_view.FindUIComponent<AssetEditorToolsPanel>("AssetEditorToolsPanel");
+			ItemClassPanel = m_view.FindUIComponent<ItemClassPanel>("ItemClassPanel");
+			UICategoryPanel = m_view.FindUIComponent<UICategoryPanel>("UICategoryPanel");
+			UIPriorityPanel = m_view.FindUIComponent<UIPriorityPanel>("UIPriorityPanel");
+			ShowPropertiesPanel = m_view.FindUIComponent<ShowPropertiesPanel>("ShowPropertiesPanel");
+			SpritePanel = m_view.FindUIComponent<SpritePanel>("SpritePanel");
 
-			assetEditorToolsPanel.m_itemClassDropDown.eventSelectedIndexChanged += ItemClassSelectedChanged;
-			assetEditorToolsPanel.m_UICategoryDropDown.eventSelectedIndexChanged += UICategorySelectedChanged;
+			ItemClassPanel.m_itemClassDropDown.eventSelectedIndexChanged += ItemClassSelectedChanged;
+			UICategoryPanel.m_UICategoryDropDown.eventSelectedIndexChanged += UICategorySelectedChanged;
 
-			assetEditorToolsPanel.m_copy.eventClick += CopySprite;
-			assetEditorToolsPanel.m_paste.eventClick += PasteSprite;
+			SpritePanel.m_copy.eventClick += CopySprite;
+			SpritePanel.m_paste.eventClick += PasteSprite;
 			
 			m_toolController = ToolsModifierControl.toolController;
 			m_toolController.eventEditPrefabChanged += OnEditPrefabChanged;
 
-			assetEditorToolsPanel.m_UIPriorityTextField.eventTextChanged += new PropertyChangedEventHandler<string>(OnConfirmChange);
+			UIPriorityPanel.m_UIPriorityTextField.eventTextChanged += new PropertyChangedEventHandler<string>(OnConfirmChange);
 
-			assetEditorToolsPanel.m_showPropertiesButton.eventClick += ToggleAsssetProperties;
+			ShowPropertiesPanel.m_showPropertiesButton.eventClick += ToggleAsssetProperties;
 		}
 
 		// Sets the ItemClass dropdown box and the UICategory dropdown box to the currently loaded prefab and category.
@@ -41,6 +48,10 @@ namespace AssetEditorTools
 			m_onchange = true; // Unnecessary in theory; distinguishes automatically changing the selected/indicated ItemClass from the user doing so.
 			string checkItemClass = null;
 			bool item_yes;
+			UIPriorityPanel.m_UIPriorityTextField.text = info.m_UIPriority.ToString();
+			UIPriorityPanel.m_UIPriorityTextField.objectUserData = info;
+			UIPriorityPanel.m_UIPriorityTextField.stringUserData = "m_UIPriority";
+			UIPriorityPanel.m_UIPriorityTextField.text = "0";
 			var prefabType = (m_toolController.m_editPrefabInfo.GetType()).Name;
 			if(prefabType == "BuildingInfo" | prefabType == "NetInfo" | prefabType == "PropInfo" | prefabType == "TransportInfo" | prefabType == "TreeInfo" | prefabType == "VehicleInfo") 
 			{
@@ -82,10 +93,17 @@ namespace AssetEditorTools
 			}
 			if(item_yes) 
 			{
-				assetEditorToolsPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(assetEditorToolsPanel.m_itemClassDropDown.items, checkItemClass);
-				assetEditorToolsPanel.m_UICategoryDropDown.selectedIndex = Array.IndexOf(assetEditorToolsPanel.m_UICategoryDropDown.items, m_toolController.m_editPrefabInfo.category);
+				ItemClassPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(ItemClassPanel.m_itemClassDropDown.items, checkItemClass);
+				UICategoryPanel.m_UICategoryDropDown.selectedIndex = Array.IndexOf(UICategoryPanel.m_UICategoryDropDown.items, m_toolController.m_editPrefabInfo.category);
 			}
-			assetEditorToolsPanel.m_itemClassDropDown.listScrollbar.isEnabled = item_yes;
+			var view = UIView.GetAView();
+			var FullScreenContainer = view.FindUIComponent("FullScreenContainer");
+			var DecorationProperties = FullScreenContainer.Find<UIPanel>("DecorationProperties"); 
+			var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
+			var scrollBar = Container.Find<UIScrollbar>("Scrollbar");
+			ItemClassPanel.m_itemClassDropDown.listScrollbar = scrollBar;
+			UICategoryPanel.m_UICategoryDropDown.listScrollbar = scrollBar;
+			ItemClassPanel.m_itemClassDropDown.listScrollbar.isEnabled = item_yes;
 			m_onchange = false;
 		}
 
@@ -162,7 +180,7 @@ namespace AssetEditorTools
 							else 
 							{
 								m_onchange = true;
-								assetEditorToolsPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(assetEditorToolsPanel.m_itemClassDropDown.items, bi.m_class.name);
+								ItemClassPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(ItemClassPanel.m_itemClassDropDown.items, bi.m_class.name);
 								m_onchange = false;
 								LogHelper.Error("ItemClass.Service", "Private building cannot include roads or other net types.\nItemClass change rejected.");
 								return;
@@ -174,7 +192,7 @@ namespace AssetEditorTools
 				if (bi.m_paths != null && bi.m_paths.Length != 0) 
 				{ 
 					m_onchange = true; 
-					assetEditorToolsPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(assetEditorToolsPanel.m_itemClassDropDown.items, bi.m_class.name);
+					ItemClassPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(ItemClassPanel.m_itemClassDropDown.items, bi.m_class.name);
 					m_onchange = false;
 					LogHelper.Error("ItemClass.Placement", "Private building cannot include roads or other net types.\nItemClass change rejected.");
 					return;
@@ -200,7 +218,7 @@ namespace AssetEditorTools
 			if (bi.m_class == null) 
 			{
 				m_onchange = true;
-				assetEditorToolsPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(assetEditorToolsPanel.m_itemClassDropDown.items, bi.m_class.name);
+				ItemClassPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(ItemClassPanel.m_itemClassDropDown.items, bi.m_class.name);
 				m_onchange = false;
 				return;
 			}
@@ -222,36 +240,36 @@ namespace AssetEditorTools
 			var prefabInfo = (PrefabInfo) m_toolController.m_editPrefabInfo;
 			if(prefabInfo.m_Atlas != null) 
 			{ 
-				assetEditorToolsPanel.u_Atlas = prefabInfo.m_Atlas; 
-				assetEditorToolsPanel.m_paste.state = UIButton.ButtonState.Normal;
+				SpritePanel.u_Atlas = prefabInfo.m_Atlas; 
+				SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
 				if(prefabInfo.m_Thumbnail != null) 
 				{ 
-					assetEditorToolsPanel.u_Thumbnail = prefabInfo.m_Thumbnail; 
-					assetEditorToolsPanel.m_paste.atlas = assetEditorToolsPanel.u_Atlas;
-					assetEditorToolsPanel.m_paste.hoveredFgSprite = assetEditorToolsPanel.u_Thumbnail;
+					SpritePanel.u_Thumbnail = prefabInfo.m_Thumbnail; 
+					SpritePanel.m_paste.atlas = SpritePanel.u_Atlas;
+					SpritePanel.m_paste.hoveredFgSprite = SpritePanel.u_Thumbnail;
 				}
 			}
 			if(prefabInfo.m_InfoTooltipAtlas != null) 
 			{ 
-				assetEditorToolsPanel.u_InfoTooltipAtlas = prefabInfo.m_InfoTooltipAtlas; 
-				assetEditorToolsPanel.m_paste.state = UIButton.ButtonState.Normal;
+				SpritePanel.u_InfoTooltipAtlas = prefabInfo.m_InfoTooltipAtlas; 
+				SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
 				if(prefabInfo.m_InfoTooltipThumbnail != null) 
 				{
-					assetEditorToolsPanel.u_InfoTooltipThumbnail = prefabInfo.m_InfoTooltipThumbnail; 
-					assetEditorToolsPanel.m_paste.state = UIButton.ButtonState.Normal;
+					SpritePanel.u_InfoTooltipThumbnail = prefabInfo.m_InfoTooltipThumbnail; 
+					SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
 				}
-				assetEditorToolsPanel.m_paste.atlas = assetEditorToolsPanel.u_InfoTooltipAtlas;
-				assetEditorToolsPanel.m_paste.normalBgSprite  = assetEditorToolsPanel.u_InfoTooltipThumbnail;
+				SpritePanel.m_paste.atlas = SpritePanel.u_InfoTooltipAtlas;
+				SpritePanel.m_paste.normalBgSprite  = SpritePanel.u_InfoTooltipThumbnail;
 			}
 		}
 
 		private void PasteSprite(UIComponent component, UIMouseEventParameter eventParam) 
 		{
 			var prefabInfo = m_toolController.m_editPrefabInfo;
-			if(assetEditorToolsPanel.u_Atlas != null) prefabInfo.m_Atlas = assetEditorToolsPanel.u_Atlas;
-			if(assetEditorToolsPanel.u_Thumbnail != null) prefabInfo.m_Thumbnail = assetEditorToolsPanel.u_Thumbnail;
-			if(assetEditorToolsPanel.u_InfoTooltipAtlas !=null ) prefabInfo.m_InfoTooltipAtlas = assetEditorToolsPanel.u_InfoTooltipAtlas;
-			if(assetEditorToolsPanel.u_InfoTooltipThumbnail !=null ) prefabInfo.m_InfoTooltipThumbnail = assetEditorToolsPanel.u_InfoTooltipThumbnail;
+			if(SpritePanel.u_Atlas != null) prefabInfo.m_Atlas = SpritePanel.u_Atlas;
+			if(SpritePanel.u_Thumbnail != null) prefabInfo.m_Thumbnail = SpritePanel.u_Thumbnail;
+			if(SpritePanel.u_InfoTooltipAtlas !=null ) prefabInfo.m_InfoTooltipAtlas = SpritePanel.u_InfoTooltipAtlas;
+			if(SpritePanel.u_InfoTooltipThumbnail !=null ) prefabInfo.m_InfoTooltipThumbnail = SpritePanel.u_InfoTooltipThumbnail;
 		}
 
 		//public class DecorationPropertiesPanel : ToolsModifierControl
@@ -302,19 +320,19 @@ namespace AssetEditorTools
 			var decorationProperties = UIView.GetAView().FindUIComponent("FullScreenContainer").Find<UIPanel>("DecorationProperties");
 			if(decorationProperties.isVisible) 
 			{
-				assetEditorToolsPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseNormal";
-				assetEditorToolsPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
-				assetEditorToolsPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
-				assetEditorToolsPanel.m_showPropertiesButton.focusedFgSprite = "InfoIconBaseNormal";
-				assetEditorToolsPanel.m_showPropertiesButton.pressedFgSprite = "InfoIconBasePressed";
+				ShowPropertiesPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseNormal";
+				ShowPropertiesPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
+				ShowPropertiesPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
+				ShowPropertiesPanel.m_showPropertiesButton.focusedFgSprite = "InfoIconBaseNormal";
+				ShowPropertiesPanel.m_showPropertiesButton.pressedFgSprite = "InfoIconBasePressed";
 			} 
 			else 
 			{
-				assetEditorToolsPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseFocused";
-				assetEditorToolsPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
-				assetEditorToolsPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
-				assetEditorToolsPanel.m_showPropertiesButton.focusedFgSprite = "InfoIconBaseFocused";
-				assetEditorToolsPanel.m_showPropertiesButton.pressedFgSprite = "InfoIconBasePressed";
+				ShowPropertiesPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseFocused";
+				ShowPropertiesPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
+				ShowPropertiesPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
+				ShowPropertiesPanel.m_showPropertiesButton.focusedFgSprite = "InfoIconBaseFocused";
+				ShowPropertiesPanel.m_showPropertiesButton.pressedFgSprite = "InfoIconBasePressed";
 			}
 		}
 	}
