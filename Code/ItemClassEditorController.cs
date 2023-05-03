@@ -1,45 +1,29 @@
 ﻿using System;
-using System.Reflection;
 using ColossalFramework.UI;
 using UnityEngine;
 using AssetEditorTools.Utils;
 
 namespace AssetEditorTools
 {
-	public class EditorController : MonoBehaviour
+	public class ItemClassEditorController : MonoBehaviour
 	{
 		private ToolController m_toolController;
 		private UIView m_view;
 		private bool m_onchange;
 
 		private ItemClassPanel ItemClassPanel;
-		private UICategoryPanel UICategoryPanel;
-		private UIPriorityPanel UIPriorityPanel;
-		private ShowPropertiesPanel ShowPropertiesPanel;
-		private SpritePanel SpritePanel;
 
 		public void Start() 
 		{
 			m_view = UIView.GetAView();
 
 			ItemClassPanel = m_view.FindUIComponent<ItemClassPanel>("ItemClassPanel");
-			UICategoryPanel = m_view.FindUIComponent<UICategoryPanel>("UICategoryPanel");
-			UIPriorityPanel = m_view.FindUIComponent<UIPriorityPanel>("UIPriorityPanel");
-			ShowPropertiesPanel = m_view.FindUIComponent<ShowPropertiesPanel>("ShowPropertiesPanel");
-			SpritePanel = m_view.FindUIComponent<SpritePanel>("SpritePanel");
 
 			ItemClassPanel.m_itemClassDropDown.eventSelectedIndexChanged += ItemClassSelectedChanged;
-			UICategoryPanel.m_UICategoryDropDown.eventSelectedIndexChanged += UICategorySelectedChanged;
 
-			SpritePanel.m_copy.eventClick += CopySprite;
-			SpritePanel.m_paste.eventClick += PasteSprite;
-			
 			m_toolController = ToolsModifierControl.toolController;
 			m_toolController.eventEditPrefabChanged += OnEditPrefabChanged;
 
-			UIPriorityPanel.m_UIPriorityTextField.eventTextChanged += new PropertyChangedEventHandler<string>(OnConfirmChange);
-
-			ShowPropertiesPanel.m_showPropertiesButton.eventClick += ToggleAsssetProperties;
 		}
 
 		// Sets the ItemClass dropdown box and the UICategory dropdown box to the currently loaded prefab and category.
@@ -48,10 +32,6 @@ namespace AssetEditorTools
 			m_onchange = true; // Unnecessary in theory; distinguishes automatically changing the selected/indicated ItemClass from the user doing so.
 			string checkItemClass = null;
 			bool item_yes;
-			UIPriorityPanel.m_UIPriorityTextField.text = info.m_UIPriority.ToString();
-			UIPriorityPanel.m_UIPriorityTextField.objectUserData = info;
-			UIPriorityPanel.m_UIPriorityTextField.stringUserData = "m_UIPriority";
-			UIPriorityPanel.m_UIPriorityTextField.text = "0";
 			var prefabType = (m_toolController.m_editPrefabInfo.GetType()).Name;
 			if(prefabType == "BuildingInfo" | prefabType == "NetInfo" | prefabType == "PropInfo" | prefabType == "TransportInfo" | prefabType == "TreeInfo" | prefabType == "VehicleInfo") 
 			{
@@ -94,7 +74,6 @@ namespace AssetEditorTools
 			if(item_yes) 
 			{
 				ItemClassPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(ItemClassPanel.m_itemClassDropDown.items, checkItemClass);
-				UICategoryPanel.m_UICategoryDropDown.selectedIndex = Array.IndexOf(UICategoryPanel.m_UICategoryDropDown.items, m_toolController.m_editPrefabInfo.category);
 			}
 			var view = UIView.GetAView();
 			var FullScreenContainer = view.FindUIComponent("FullScreenContainer");
@@ -102,7 +81,6 @@ namespace AssetEditorTools
 			var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
 			var scrollBar = Container.Find<UIScrollbar>("Scrollbar");
 			ItemClassPanel.m_itemClassDropDown.listScrollbar = scrollBar;
-			UICategoryPanel.m_UICategoryDropDown.listScrollbar = scrollBar;
 			ItemClassPanel.m_itemClassDropDown.listScrollbar.isEnabled = item_yes;
 			m_onchange = false;
 		}
@@ -225,115 +203,5 @@ namespace AssetEditorTools
 			bi.m_class = itemClass;
 		}
 
-		// Attempts to shove the selected UICategory into the Prefab.
-		private void UICategorySelectedChanged(UIComponent component, int index) 
-		{
-			if(!m_onchange) 
-			{
-				UIDropDown dropdown = (UIDropDown) component as UIDropDown;
-				typeof(PrefabInfo).GetField("m_UICategory", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(m_toolController.m_editPrefabInfo, dropdown.selectedValue);
-			}
-		}
-
-		private void CopySprite(UIComponent component, UIMouseEventParameter eventParam) 
-		{
-			var prefabInfo = (PrefabInfo) m_toolController.m_editPrefabInfo;
-			if(prefabInfo.m_Atlas != null) 
-			{ 
-				SpritePanel.u_Atlas = prefabInfo.m_Atlas; 
-				SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
-				if(prefabInfo.m_Thumbnail != null) 
-				{ 
-					SpritePanel.u_Thumbnail = prefabInfo.m_Thumbnail; 
-					SpritePanel.m_paste.atlas = SpritePanel.u_Atlas;
-					SpritePanel.m_paste.hoveredFgSprite = SpritePanel.u_Thumbnail;
-				}
-			}
-			if(prefabInfo.m_InfoTooltipAtlas != null) 
-			{ 
-				SpritePanel.u_InfoTooltipAtlas = prefabInfo.m_InfoTooltipAtlas; 
-				SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
-				if(prefabInfo.m_InfoTooltipThumbnail != null) 
-				{
-					SpritePanel.u_InfoTooltipThumbnail = prefabInfo.m_InfoTooltipThumbnail; 
-					SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
-				}
-				SpritePanel.m_paste.atlas = SpritePanel.u_InfoTooltipAtlas;
-				SpritePanel.m_paste.normalBgSprite  = SpritePanel.u_InfoTooltipThumbnail;
-			}
-		}
-
-		private void PasteSprite(UIComponent component, UIMouseEventParameter eventParam) 
-		{
-			var prefabInfo = m_toolController.m_editPrefabInfo;
-			if(SpritePanel.u_Atlas != null) prefabInfo.m_Atlas = SpritePanel.u_Atlas;
-			if(SpritePanel.u_Thumbnail != null) prefabInfo.m_Thumbnail = SpritePanel.u_Thumbnail;
-			if(SpritePanel.u_InfoTooltipAtlas !=null ) prefabInfo.m_InfoTooltipAtlas = SpritePanel.u_InfoTooltipAtlas;
-			if(SpritePanel.u_InfoTooltipThumbnail !=null ) prefabInfo.m_InfoTooltipThumbnail = SpritePanel.u_InfoTooltipThumbnail;
-		}
-
-		//public class DecorationPropertiesPanel : ToolsModifierControl
-		private void OnConfirmChange(UIComponent comp, string text) 
-		{
-			if (comp == null || comp.objectUserData == null) {
-				return;
-			}
-			FieldInfo field = comp.objectUserData.GetType().GetField(comp.stringUserData, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
-			if (field.FieldType == typeof(int)) 
-			{
-				if (int.TryParse(text, out int num)) 
-				{
-					comp.color = Color.white;
-					field.SetValue(comp.objectUserData, num);
-				} 
-				else 
-				{
-					comp.color = Color.red;
-				}
-			} 
-			else if (field.FieldType == typeof(float)) 
-			{
-				if (float.TryParse(text, out float num2)) 
-				{
-					comp.color = Color.white;
-					field.SetValue(comp.objectUserData, num2);
-				} 
-				else 
-				{
-					comp.color = Color.red;
-				}
-			}
-		}
-
-		private void ToggleAsssetProperties(UIComponent component, UIMouseEventParameter eventParam) 
-		{
-			var decorationProperties = UIView.GetAView().FindUIComponent("FullScreenContainer").Find<UIPanel>("DecorationProperties");
-			if(decorationProperties != null) 
-			{
-				decorationProperties.isVisible = !decorationProperties.isVisible;
-				SpriteShowForeground();
-			}
-		}
-
-		private void SpriteShowForeground() 
-		{
-			var decorationProperties = UIView.GetAView().FindUIComponent("FullScreenContainer").Find<UIPanel>("DecorationProperties");
-			if(decorationProperties.isVisible) 
-			{
-				ShowPropertiesPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseNormal";
-				ShowPropertiesPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
-				ShowPropertiesPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
-				ShowPropertiesPanel.m_showPropertiesButton.focusedFgSprite = "InfoIconBaseNormal";
-				ShowPropertiesPanel.m_showPropertiesButton.pressedFgSprite = "InfoIconBasePressed";
-			} 
-			else 
-			{
-				ShowPropertiesPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseFocused";
-				ShowPropertiesPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
-				ShowPropertiesPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
-				ShowPropertiesPanel.m_showPropertiesButton.focusedFgSprite = "InfoIconBaseFocused";
-				ShowPropertiesPanel.m_showPropertiesButton.pressedFgSprite = "InfoIconBasePressed";
-			}
-		}
 	}
 }

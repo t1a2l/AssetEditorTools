@@ -25,7 +25,8 @@ namespace AssetEditorTools
 			m_itemClassDropDown.triggerButton = m_itemClassDropDownButton;
 			PopulateItemClassDropDown();
 
-			gameObject.AddComponent<EditorController>();
+			gameObject.AddComponent<ItemClassEditorController>();
+
 		}
 
 		private void PopulateItemClassDropDown() 
@@ -40,7 +41,8 @@ namespace AssetEditorTools
 			}
 			var sortedItemClasses = sortItemClasses.OrderBy(s => (int) s.m_service).ThenBy(s => (int) s.m_subService).ThenBy(s => (int) s.m_level).ThenBy(s => s.name);
 
-			foreach(ItemClass itemClass in sortedItemClasses) {
+			foreach(ItemClass itemClass in sortedItemClasses) 
+			{
 				m_itemClassDropDown.AddItem(itemClass.name);
 			}
 

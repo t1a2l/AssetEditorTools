@@ -13,6 +13,7 @@ namespace AssetEditorTools
 
 		public class CategoryInfo 
 		{
+			public string name;
 			public string type;
 		}
 
@@ -35,7 +36,7 @@ namespace AssetEditorTools
 			m_UICategoryDropDown.triggerButton = m_UICategoryDropDownButton;
 			PopulateUICategoryDropDown();
 
-			gameObject.AddComponent<EditorController>();
+			gameObject.AddComponent<UICategoryEditorController>();
 		}
 
 		private void PopulateUICategoryDropDown()
@@ -44,49 +45,49 @@ namespace AssetEditorTools
 			{
 				foreach(BuildingInfo buildingInfo in buildingCollection.m_prefabs) 
 				{
-					AddCategory("BuildingInfo");
+					AddCategory("BuildingInfo", buildingInfo.category);
 				}
 			}
 			foreach(NetCollection netCollection in FindObjectsOfType<NetCollection>()) 
 			{
 				foreach(NetInfo netInfo in netCollection.m_prefabs) 
 				{
-					AddCategory("NetInfo");
+					AddCategory("NetInfo", netInfo.category);
 				}
 			}
 			foreach(PropCollection propCollection in FindObjectsOfType<PropCollection>()) 
 			{
 				foreach(PropInfo propInfo in propCollection.m_prefabs) 
 				{
-					AddCategory("PropInfo");
+					AddCategory("PropInfo", propInfo.category);
 				}
 			}
 			foreach(TreeCollection treeCollection in FindObjectsOfType<TreeCollection>()) 
 			{
 				foreach(TreeInfo treeInfo in treeCollection.m_prefabs) 
 				{
-					AddCategory("TreeInfo");
+					AddCategory("TreeInfo", treeInfo.category);
 				}
 			}
 			foreach(VehicleCollection vehicleCollection in FindObjectsOfType<VehicleCollection>()) 
 			{
 				foreach(VehicleInfo vehicleInfo in vehicleCollection.m_prefabs) 
 				{
-					AddCategory("VehicleInfo");
+					AddCategory("VehicleInfo", vehicleInfo.category);
 				}
 			}
 			foreach(CitizenCollection citizenCollection in FindObjectsOfType<CitizenCollection>()) 
 			{
 				foreach(CitizenInfo citizenInfo in citizenCollection.m_prefabs) 
 				{
-					AddCategory("CitizenInfo");
+					AddCategory("CitizenInfo", citizenInfo.category);
 				}
 			}
 			foreach(TransportCollection transportCollection in FindObjectsOfType<TransportCollection>()) 
 			{
 				foreach(TransportInfo transportInfo in transportCollection.m_prefabs) 
 				{
-					AddCategory("TransportInfo");
+					AddCategory("TransportInfo", transportInfo.category);
 				}
 			}
 
@@ -150,10 +151,11 @@ namespace AssetEditorTools
 			}
 		}
 
-		private void AddCategory(string type)
+		private void AddCategory(string type, string name)
 		{
 			CategoryInfo categoryInfo = new()
 			{
+				name = name,
 				type = type
 			};
 			if (categoryList.IndexOf(categoryInfo) == -1) 
@@ -161,7 +163,6 @@ namespace AssetEditorTools
 				categoryList.Add(categoryInfo);
 			}
 		}
-
 
 	}
 }
