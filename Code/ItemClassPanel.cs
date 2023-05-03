@@ -20,8 +20,8 @@ namespace AssetEditorTools
 			width = 393;
 			height = 25;
 
-			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 393, 25, "Item Class", 220, 25, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
-			m_itemClassDropDownButton = UIButtons.AddButton(m_itemClassDropDown, 191, 20, "Apply", 200, 30, 0.9f, 4);
+			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 190.0f, 0.0f, "Item Class", 191.0f, 20.0f, 0.7f, 25, 8, true, "Item Class determines the Service SubService and building category.");
+			m_itemClassDropDownButton = UIButtons.AddButton(m_itemClassDropDown, 0.0f, 0.0f, "Apply", 191.0f, 20.0f, 0.9f, 4);
 			m_itemClassDropDown.triggerButton = m_itemClassDropDownButton;
 			PopulateItemClassDropDown();
 

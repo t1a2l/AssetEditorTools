@@ -17,7 +17,7 @@ namespace AssetEditorTools
 			width = 393;
 			height = 25;
 
-			m_showPropertiesButton = UIButtons.AddButton(this, 324, 25, "Properties", 200, 30, 0.9f, 4, "Properties");
+			m_showPropertiesButton = UIButtons.AddButton(this, 1f, -0.935f, "Properties", 324, 25, 0.9f, 4, "Properties");
 
 			gameObject.AddComponent<EditorController>();
 		}
