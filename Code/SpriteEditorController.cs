@@ -18,6 +18,8 @@ namespace AssetEditorTools
 
 			SpritePanel.m_copy.eventClick += CopySprite;
 			SpritePanel.m_paste.eventClick += PasteSprite;
+
+			m_toolController = ToolsModifierControl.toolController;
 			
 		}
 
