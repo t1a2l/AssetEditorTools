@@ -95,7 +95,7 @@ namespace AssetEditorTools
 			while (categoryList.Count > 0) 
 			{
 				CategoryInfo categoryInfo = categoryList[0];
-				foreach(CategoryInfo category in categoryList.FindAll(x => x.type == categoryInfo.type)) 
+				foreach(CategoryInfo category in categoryList.FindAll(x => x.name == categoryInfo.name)) 
 				{
 					if(category.type == "BuildingInfo")  {categoryInfo.type = "BuildingInfo";}
 					if(category.type == "NetInfo")       {categoryInfo.type = "NetInfo";}
@@ -106,7 +106,7 @@ namespace AssetEditorTools
 					if(category.type == "TransportInfo") {categoryInfo.type = "TransportInfo";}
 				}
 				reducedCategoryList.Add(categoryInfo);
-				categoryList.RemoveAll(x => x.type == categoryInfo.type);
+				categoryList.RemoveAll(x => x.name == categoryInfo.name);
 			}
 
 			var sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo").ThenBy(s => s.type);
@@ -115,38 +115,38 @@ namespace AssetEditorTools
 			PrefabInfo prefabInfo = Singleton<ToolManager>.instance.m_properties.m_editPrefabInfo;
 			if(null != prefabInfo as BuildingInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "BuildingInfo").ThenBy(s => s.type).ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "BuildingInfo").ThenBy(s => s.name).ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as NetInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "NetInfo").ThenBy(s => s.type).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "NetInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as PropInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "PropInfo").ThenBy(s => s.type).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "PropInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as TreeInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "TreeInfo").ThenBy(s => s.type).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "TreeInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as VehicleInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "VehicleInfo").ThenBy(s => s.type).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "VehicleInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as CitizenInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "CitizenInfo").ThenBy(s => s.type).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "CitizenInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as TransportInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "TransportInfo").ThenBy(s => s.type).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "TransportInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo");
 			} 
 			else 
 			{
 			}
 			foreach(CategoryInfo categoryInfo1 in sortedcategorylist) 
 			{
-				m_UICategoryDropDown.AddItem(categoryInfo1.type);
+				m_UICategoryDropDown.AddItem(categoryInfo1.name);
 			}
 		}
 

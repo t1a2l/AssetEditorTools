@@ -2,6 +2,7 @@
 using System;
 using AssetEditorTools.Utils;
 using ColossalFramework.UI;
+using UnityEngine;
 
 namespace AssetEditorTools
 {
@@ -14,6 +15,8 @@ namespace AssetEditorTools
 
         public string Description => "Allows you to change the PrefabAI, UICategory, UIPriority and ItemClass in the Asset Editor. including building, vehicle, citizen, network etc.";
     
+        private ShowPropertiesPanel ShowPropertiesPanel;
+
         public override void OnLevelLoaded(LoadMode mode) 
         {
 			try 
@@ -35,8 +38,25 @@ namespace AssetEditorTools
                     Container.AttachUIComponent(aIPanel.gameObject);
 
                     Container.AddUIComponent<UIPriorityPanel>();
-                    Container.AddUIComponent<ShowPropertiesPanel>();
                     Container.AddUIComponent<SpritePanel>();
+
+                    ShowPropertiesPanel = view.FindUIComponent<ShowPropertiesPanel>("ShowPropertiesPanel");
+
+                    UIComponent bulldozerButton = view.FindUIComponent<UIComponent>("MarqueeBulldozer");
+                    UIComponent moveitButton = view.FindUIComponent<UIComponent>("MoveIt");
+                    if(moveitButton == null)
+			        {
+                        if (bulldozerButton == null)
+                        {
+                            bulldozerButton = view.FindUIComponent<UIComponent>("BulldozerButton");
+                        }
+				        ShowPropertiesPanel.absolutePosition = new Vector2(bulldozerButton.absolutePosition.x - 390, bulldozerButton.parent.absolutePosition.y);
+			        }
+                    else
+			        {
+                        ShowPropertiesPanel.absolutePosition = new Vector2(moveitButton.absolutePosition.x - 390, moveitButton.parent.absolutePosition.y);
+			        }
+
 				}
 			} 
             catch (Exception ex) 

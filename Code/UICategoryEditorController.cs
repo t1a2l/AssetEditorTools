@@ -33,8 +33,7 @@ namespace AssetEditorTools
 		// Attempts to shove the selected UICategory into the Prefab.
 		private void UICategorySelectedChanged(UIComponent component, UIMouseEventParameter eventParam) 
 		{
-			UIDropDown dropdown = (UIDropDown) component;
-			typeof(PrefabInfo).GetField("m_UICategory", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(m_toolController.m_editPrefabInfo, dropdown.selectedValue);
+			typeof(PrefabInfo).GetField("m_UICategory", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(m_toolController.m_editPrefabInfo, UICategoryPanel.m_UICategoryDropDown.selectedValue);
 		}
 
 	}

@@ -10,6 +10,7 @@ namespace AssetEditorTools
 		public override void Start() 
 		{ 
 			base.Start();
+			var view = UIView.GetAView();
 
 			backgroundSprite = "SubcategoriesPanel";
 			clipChildren = true;

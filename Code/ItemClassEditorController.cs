@@ -65,12 +65,11 @@ namespace AssetEditorTools
 		private void ApplyNewItemClass(UIComponent component, UIMouseEventParameter eventParam) 
 		{
 			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
-			UIDropDown dropdown = (UIDropDown) component;
 			foreach(ItemClassCollection collection in FindObjectsOfType<ItemClassCollection>()) 
 			{
 				foreach(ItemClass itemClass in collection.m_classes)
 				{
-					if(dropdown.selectedValue == itemClass.name)
+					if(ItemClassPanel.m_itemClassDropDown.selectedValue == itemClass.name)
 					{
 						BuildingInfo bi = info as BuildingInfo;
 						if(bi != null) 

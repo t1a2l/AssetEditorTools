@@ -28,16 +28,14 @@ namespace AssetEditorTools
 		// Sets the ItemClass dropdown box and the UICategory dropdown box to the currently loaded prefab and category.
 		private void OnEditPrefabChanged(PrefabInfo info)
 		{
-			AIPanel.m_AIDropDown.selectedIndex = Array.IndexOf(AIPanel.m_AIDropDown.items, info.GetAI().name);
+			AIPanel.m_AIDropDown.selectedIndex = Array.IndexOf(AIPanel.m_AIDropDown.items, info.GetAI().GetType().Name);
 		}
 
 		// Attempts to matches the selected item class name with an actual ItemClass.
 		private void ApplyNewAI(UIComponent component, UIMouseEventParameter eventParam) 
 		{
 			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
-			UIDropDown dropdown = (UIDropDown) component;
-
-			if(info.GetAI().name != dropdown.selectedValue)
+			if(info.GetAI().name != AIPanel.m_AIDropDown.selectedValue)
 			{
 				var oldAI = info.GetComponent<PrefabAI>();
                 Object.DestroyImmediate(oldAI);
