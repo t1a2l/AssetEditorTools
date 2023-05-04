@@ -3,6 +3,7 @@ using ColossalFramework.UI;
 using UnityEngine;
 using AssetEditorTools.Utils;
 using Object = UnityEngine.Object;
+using System.Reflection;
 
 namespace AssetEditorTools
 {
@@ -43,8 +44,17 @@ namespace AssetEditorTools
                 Object.DestroyImmediate(oldAI);
                 var newAI = (PrefabAI)info.gameObject.AddComponent(PrefabAIPanel.prefabAIList[index].type);
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+				info.TempInitializePrefab();
+				RefreshPropertiesPanel(info);
 			}
 
+		}
+
+		private void RefreshPropertiesPanel(PrefabInfo prefabInfo) 
+		{
+			var decorationProperties = UIView.GetAView().FindUIComponent("FullScreenContainer").Find<UIPanel>("DecorationProperties");
+			decorationProperties.GetType().InvokeMember("Refresh", BindingFlags.InvokeMethod | BindingFlags.NonPublic, null, decorationProperties, new object[] {prefabInfo});
 		}
 
 	}
