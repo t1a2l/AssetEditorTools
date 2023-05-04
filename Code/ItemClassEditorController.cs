@@ -9,7 +9,6 @@ namespace AssetEditorTools
 	{
 		private ToolController m_toolController;
 		private UIView m_view;
-		private bool m_onchange;
 
 		private ItemClassPanel ItemClassPanel;
 
