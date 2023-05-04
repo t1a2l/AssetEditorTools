@@ -30,7 +30,7 @@ namespace AssetEditorTools
 
 		private void PopulateAIDropDown()
 		{
-			var sortedAI = new List<string>();
+			List<string> PrefabAI = new();
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies()) 
 			{
 				Type[] assemblyTypes = a.GetTypes();
@@ -38,14 +38,16 @@ namespace AssetEditorTools
 				{
 					if (assemblyTypes[j].IsSubclassOf(typeof (PrefabAI))) 
 					{
-						sortedAI.Add(assemblyTypes[j].Name);
+						PrefabAI.Add(assemblyTypes[j].Name);
 					}
 				}
 			}
 
-			foreach(string ai in sortedAI) 
+			PrefabAI.Sort();
+
+			foreach(string prefabAI in PrefabAI) 
 			{
-				m_PrefabAIDropDown.AddItem(ai);
+				m_PrefabAIDropDown.AddItem(prefabAI);
 			}
 		}
 
