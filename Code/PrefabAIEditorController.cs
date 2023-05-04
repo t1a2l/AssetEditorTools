@@ -6,20 +6,20 @@ using Object = UnityEngine.Object;
 
 namespace AssetEditorTools
 {
-	public class AIEditorController : MonoBehaviour
+	public class PrefabAIEditorController : MonoBehaviour
 	{
 		private ToolController m_toolController;
 		private UIView m_view;
 
-		private AIPanel AIPanel;
+		private PrefabAIPanel prefabAIPanel;
 
 		public void Start() 
 		{
 			m_view = UIView.GetAView();
 
-			AIPanel = m_view.FindUIComponent<AIPanel>("AIPanel");
+			prefabAIPanel = m_view.FindUIComponent<PrefabAIPanel>("PrefabAIPanel");
 
-			AIPanel.m_AIApplyButton.eventClicked += ApplyNewAI;
+			prefabAIPanel.m_PrefabAIApplyButton.eventClicked += ApplyNewAI;
 
 			m_toolController = ToolsModifierControl.toolController;
 			m_toolController.eventEditPrefabChanged += OnEditPrefabChanged;
@@ -28,14 +28,14 @@ namespace AssetEditorTools
 		// Sets the ItemClass dropdown box and the UICategory dropdown box to the currently loaded prefab and category.
 		private void OnEditPrefabChanged(PrefabInfo info)
 		{
-			AIPanel.m_AIDropDown.selectedIndex = Array.IndexOf(AIPanel.m_AIDropDown.items, info.GetAI().GetType().Name);
+			prefabAIPanel.m_PrefabAIDropDown.selectedIndex = Array.IndexOf(prefabAIPanel.m_PrefabAIDropDown.items, info.GetAI().GetType().Name);
 		}
 
 		// Attempts to matches the selected item class name with an actual ItemClass.
 		private void ApplyNewAI(UIComponent component, UIMouseEventParameter eventParam) 
 		{
 			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
-			if(info.GetAI().name != AIPanel.m_AIDropDown.selectedValue)
+			if(info.GetAI().name != prefabAIPanel.m_PrefabAIDropDown.selectedValue)
 			{
 				var oldAI = info.GetComponent<PrefabAI>();
                 Object.DestroyImmediate(oldAI);
