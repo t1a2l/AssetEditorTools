@@ -51,7 +51,5 @@ namespace AssetEditorTools
 			}
 		}
 
-	
-
 	}
 }
