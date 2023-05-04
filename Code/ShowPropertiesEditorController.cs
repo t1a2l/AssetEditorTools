@@ -33,6 +33,7 @@ namespace AssetEditorTools
 			var decorationProperties = UIView.GetAView().FindUIComponent("FullScreenContainer").Find<UIPanel>("DecorationProperties");
 			if(decorationProperties.isVisible) 
 			{
+				ShowPropertiesPanel.m_showPropertiesButton.text = "Hide Properties";
 				ShowPropertiesPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseNormal";
 				ShowPropertiesPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
 				ShowPropertiesPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
@@ -41,6 +42,7 @@ namespace AssetEditorTools
 			} 
 			else 
 			{
+				ShowPropertiesPanel.m_showPropertiesButton.text = "Show Properties";
 				ShowPropertiesPanel.m_showPropertiesButton.normalFgSprite = "InfoIconBaseFocused";
 				ShowPropertiesPanel.m_showPropertiesButton.disabledFgSprite = "InfoIconBaseDisabled";
 				ShowPropertiesPanel.m_showPropertiesButton.hoveredFgSprite = "InfoIconBaseHovered";
