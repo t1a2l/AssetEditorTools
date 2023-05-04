@@ -38,7 +38,7 @@ namespace AssetEditorTools
 					sortItemClasses.Add(itemClass);
 				}
 			}
-			var sortedItemClasses = sortItemClasses.OrderBy(s => (int) s.m_service).ThenBy(s => (int) s.m_subService).ThenBy(s => (int) s.m_level).ThenBy(s => s.name);
+			var sortedItemClasses = sortItemClasses.OrderBy(s => s.name).ThenBy(s => (int) s.m_service).ThenBy(s => (int) s.m_subService).ThenBy(s => (int) s.m_level);
 
 			foreach(ItemClass itemClass in sortedItemClasses) 
 			{
@@ -47,7 +47,6 @@ namespace AssetEditorTools
 
 			m_itemClassDropDown.selectedIndex = 0;
 		}
-
 
 	}
 }

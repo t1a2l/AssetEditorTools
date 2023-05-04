@@ -35,7 +35,7 @@ namespace AssetEditorTools
 		private void ApplyNewAI(UIComponent component, UIMouseEventParameter eventParam) 
 		{
 			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
-			if(info.GetAI().name != prefabAIPanel.m_PrefabAIDropDown.selectedValue)
+			if(info.GetAI().GetType().Name != prefabAIPanel.m_PrefabAIDropDown.selectedValue)
 			{
 				var oldAI = info.GetComponent<PrefabAI>();
                 Object.DestroyImmediate(oldAI);

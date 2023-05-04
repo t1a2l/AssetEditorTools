@@ -15,7 +15,7 @@ namespace AssetEditorTools
 
 			ShowPropertiesPanel = m_view.FindUIComponent<ShowPropertiesPanel>("ShowPropertiesPanel");
 			
-			ShowPropertiesPanel.m_showPropertiesButton.eventClick += ToggleAsssetProperties;
+			ShowPropertiesPanel.m_showPropertiesButton.eventClicked += ToggleAsssetProperties;
 		}
 
 		private void ToggleAsssetProperties(UIComponent component, UIMouseEventParameter eventParam) 

@@ -33,7 +33,7 @@ namespace AssetEditorTools
 			}
             else
 			{
-                this.absolutePosition = new Vector2(moveitButton.absolutePosition.x - width - 5, moveitButton.parent.absolutePosition.y);
+                this.absolutePosition = new Vector2(moveitButton.absolutePosition.x - width - 5, moveitButton.absolutePosition.y);
 			}
 
 			gameObject.AddComponent<ShowPropertiesEditorController>();

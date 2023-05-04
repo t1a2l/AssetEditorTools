@@ -115,31 +115,31 @@ namespace AssetEditorTools
 			PrefabInfo prefabInfo = Singleton<ToolManager>.instance.m_properties.m_editPrefabInfo;
 			if(null != prefabInfo as BuildingInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "BuildingInfo").ThenBy(s => s.name).ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as NetInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "NetInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as PropInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "PropInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as TreeInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "TreeInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as VehicleInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "VehicleInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as CitizenInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "CitizenInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "TransportInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "CitizenInfo").ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "TransportInfo");
 			} 
 			else if(null != prefabInfo as TransportInfo) 
 			{
-				sortedcategorylist = reducedCategoryList.OrderBy(s => s.type == "TransportInfo").ThenBy(s => s.name).ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo");
+				sortedcategorylist = reducedCategoryList.OrderBy(s => s.name).ThenBy(s => s.type == "TransportInfo").ThenBy(s => s.type == "BuildingInfo").ThenBy(s => s.type == "NetInfo").ThenBy(s => s.type == "PropInfo").ThenBy(s => s.type == "TreeInfo").ThenBy(s => s.type == "VehicleInfo").ThenBy(s => s.type == "CitizenInfo");
 			} 
 			else 
 			{
