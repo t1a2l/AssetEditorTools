@@ -29,11 +29,11 @@ namespace AssetEditorTools
                 {
                     bulldozerButton = view.FindUIComponent<UIComponent>("BulldozerButton");
                 }
-				this.absolutePosition = new Vector2(bulldozerButton.absolutePosition.x - width - 5, bulldozerButton.parent.absolutePosition.y);
+				this.absolutePosition = new Vector2(bulldozerButton.absolutePosition.x - width - 5, bulldozerButton.parent.absolutePosition.y + 10);
 			}
             else
 			{
-                this.absolutePosition = new Vector2(moveitButton.absolutePosition.x - width - 5, moveitButton.absolutePosition.y);
+                this.absolutePosition = new Vector2(moveitButton.absolutePosition.x - width - 5, moveitButton.absolutePosition.y + 10);
 			}
 
 			gameObject.AddComponent<ShowPropertiesEditorController>();
