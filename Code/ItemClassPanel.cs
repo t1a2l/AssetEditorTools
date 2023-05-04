@@ -20,8 +20,8 @@ namespace AssetEditorTools
 			width = 393;
 			height = 25;
 
-			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "Item Class", 220f, 25f, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
-			m_itemClassApplyButton = UIButtons.AddButton(this, 200.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
+			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "ItemClass", 180.0f, 25.0f, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
+			m_itemClassApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 			PopulateItemClassDropDown();
 
 			gameObject.AddComponent<ItemClassEditorController>();

@@ -31,6 +31,9 @@ namespace AssetEditorTools
                     var uICategoryPanel = Container.AddUIComponent<UICategoryPanel>();
                     Container.AttachUIComponent(uICategoryPanel.gameObject);
 
+                    var aIPanel = Container.AddUIComponent<AIPanel>();
+                    Container.AttachUIComponent(aIPanel.gameObject);
+
                     Container.AddUIComponent<UIPriorityPanel>();
                     Container.AddUIComponent<ShowPropertiesPanel>();
                     Container.AddUIComponent<SpritePanel>();
