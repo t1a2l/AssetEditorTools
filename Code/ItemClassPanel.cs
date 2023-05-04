@@ -8,7 +8,7 @@ namespace AssetEditorTools
 	public class ItemClassPanel : UIPanel
 	{
 		public UIDropDown m_itemClassDropDown;
-		public UIButton m_itemClassDropDownButton;
+		public UIButton m_itemClassApplyButton;
 
 		public override void Start() 
 		{ 
@@ -20,9 +20,8 @@ namespace AssetEditorTools
 			width = 393;
 			height = 25;
 
-			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 190.0f, 0.0f, "Item Class", 191.0f, 20.0f, 0.7f, 25, 8, true, "Item Class determines the Service SubService and building category.");
-			m_itemClassDropDownButton = UIButtons.AddButton(m_itemClassDropDown, 0.0f, 0.0f, "Apply", 191.0f, 20.0f, 0.9f, 4);
-			m_itemClassDropDown.triggerButton = m_itemClassDropDownButton;
+			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "Item Class", 220f, 25f, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
+			m_itemClassApplyButton = UIButtons.AddButton(this, 200.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 			PopulateItemClassDropDown();
 
 			gameObject.AddComponent<ItemClassEditorController>();

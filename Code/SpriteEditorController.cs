@@ -18,6 +18,7 @@ namespace AssetEditorTools
 
 			SpritePanel.m_copy.eventClick += CopySprite;
 			SpritePanel.m_paste.eventClick += PasteSprite;
+			SpritePanel.m_paste.state = UIButton.ButtonState.Disabled;
 
 			m_toolController = ToolsModifierControl.toolController;
 			
@@ -25,7 +26,7 @@ namespace AssetEditorTools
 
 		private void CopySprite(UIComponent component, UIMouseEventParameter eventParam) 
 		{
-			var prefabInfo = (PrefabInfo) m_toolController.m_editPrefabInfo;
+			var prefabInfo = m_toolController.m_editPrefabInfo;
 			if(prefabInfo.m_Atlas != null) 
 			{ 
 				SpritePanel.u_Atlas = prefabInfo.m_Atlas; 
@@ -47,7 +48,7 @@ namespace AssetEditorTools
 					SpritePanel.m_paste.state = UIButton.ButtonState.Normal;
 				}
 				SpritePanel.m_paste.atlas = SpritePanel.u_InfoTooltipAtlas;
-				SpritePanel.m_paste.normalBgSprite  = SpritePanel.u_InfoTooltipThumbnail;
+				SpritePanel.m_paste.normalBgSprite = SpritePanel.u_InfoTooltipThumbnail;
 			}
 		}
 

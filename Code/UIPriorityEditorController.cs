@@ -11,7 +11,7 @@ namespace AssetEditorTools
 
 		private UIPriorityPanel UIPriorityPanel;
 
-		public void Start() 
+		public void Start()
 		{
 			m_view = UIView.GetAView();
 

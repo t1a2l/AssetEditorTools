@@ -9,7 +9,7 @@ namespace AssetEditorTools
 	public class UICategoryPanel : UIPanel
 	{
 		public UIDropDown m_UICategoryDropDown;
-		public UIButton m_UICategoryDropDownButton;
+		public UIButton m_UICategoryApplyButton;
 
 		public class CategoryInfo 
 		{
@@ -31,9 +31,8 @@ namespace AssetEditorTools
 			width = 393;
 			height = 25;
 
-			m_UICategoryDropDown = UIDropDowns.AddLabelledDropDown(this, 190.0f, 0.0f, "UICategory", 191.0f, 20.0f, 0.7f, 25, 8, true, "Category determines the tab an asset will appear under.");
-			m_UICategoryDropDownButton = UIButtons.AddButton(m_UICategoryDropDown, 0.0f, 0.0f, "Apply", 191.0f, 20.0f, 0.9f, 4);
-			m_UICategoryDropDown.triggerButton = m_UICategoryDropDownButton;
+			m_UICategoryDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "UICategory", 220f, 25f, 0.7f, 25, 8, true, "Category determines the tab an asset will appear under.");
+			m_UICategoryApplyButton = UIButtons.AddButton(this, 200.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 			PopulateUICategoryDropDown();
 
 			gameObject.AddComponent<UICategoryEditorController>();
