@@ -37,9 +37,11 @@ namespace AssetEditorTools
 			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
 			if(info.GetAI().GetType().Name != prefabAIPanel.m_PrefabAIDropDown.selectedValue)
 			{
+				var index = PrefabAIPanel.prefabAIList.FindIndex(x => x.type.Name == prefabAIPanel.m_PrefabAIDropDown.selectedValue);
+
 				var oldAI = info.GetComponent<PrefabAI>();
                 Object.DestroyImmediate(oldAI);
-                var newAI = (PrefabAI)info.gameObject.AddComponent(info.GetAI().GetType());
+                var newAI = (PrefabAI)info.gameObject.AddComponent(PrefabAIPanel.prefabAIList[index].type);
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
 			}
 

@@ -11,12 +11,22 @@ namespace AssetEditorTools
 		public UIDropDown m_PrefabAIDropDown;
 		public UIButton m_PrefabAIApplyButton;
 
+		public class PrefabAIInfo 
+		{
+			public string name;
+			public Type type;
+		}
+
+		public static List<PrefabAIInfo> prefabAIList;
+
 		public override void Start() 
 		{ 
 			base.Start();
 
 			backgroundSprite = "SubcategoriesPanel";
 			clipChildren = true;
+
+			prefabAIList = new();
 
 			width = 393;
 			height = 25;
@@ -38,6 +48,13 @@ namespace AssetEditorTools
 				{
 					if (assemblyTypes[j].IsSubclassOf(typeof (PrefabAI))) 
 					{
+						PrefabAIInfo prefabAIInfo = new() 
+						{
+							name =  assemblyTypes[j].Name,
+							type = assemblyTypes[j]	
+						};
+						prefabAIList.Add(prefabAIInfo);
+
 						PrefabAI.Add(assemblyTypes[j].Name);
 					}
 				}
