@@ -1,105 +1,104 @@
 ﻿using System;
 using ColossalFramework.UI;
 using UnityEngine;
-using AssetEditorTools.Utils;
 
 namespace AssetEditorTools
 {
-	public class ItemClassEditorController : MonoBehaviour
+	public class ServiceEditorController : MonoBehaviour
 	{
 		private ToolController m_toolController;
 		private UIView m_view;
 
-		private ItemClassPanel ItemClassPanel;
+		private ServicePanel servicePanel;
 
 		public void Start() 
 		{
 			m_view = UIView.GetAView();
 
-			ItemClassPanel = m_view.FindUIComponent<ItemClassPanel>("ItemClassPanel");
+			servicePanel = m_view.FindUIComponent<ServicePanel>("ServicePanel");
 
-			ItemClassPanel.m_itemClassApplyButton.eventClicked += ApplyNewItemClass;
+			servicePanel.m_serviceApplyButton.eventClicked += ApplyNewService;
 
 			m_toolController = ToolsModifierControl.toolController;
 			m_toolController.eventEditPrefabChanged += OnEditPrefabChanged;
 		}
 
-		// Sets the ItemClass dropdown box and the UICategory dropdown box to the currently loaded prefab and category.
+		// Sets the Service dropdown box to the currently loaded ItemClass service.
 		private void OnEditPrefabChanged(PrefabInfo info)
 		{
-			string checkItemClass = null;
+			string checkService = null;
 			BuildingInfo bi = info as BuildingInfo;
 			if(bi != null) 
 			{
-				checkItemClass = bi.m_class.name;
+				checkService = bi.m_class.m_service.ToString();
 			}
 			NetInfo ni = info as NetInfo;
 			if(ni != null) 
 			{
-				checkItemClass = ni.m_class.name;
+				checkService = ni.m_class.m_service.ToString();
 			}
 			PropInfo pi = info as PropInfo;
 			if(pi != null) 
 			{
-				checkItemClass = pi.m_class.name;
+				checkService = pi.m_class.m_service.ToString();
 			}
 			TransportInfo ti = info as TransportInfo;
 			if(ti != null) 
 			{
-				checkItemClass = ti.m_class.name;
+				checkService = ti.m_class.m_service.ToString();
 			}
 			TreeInfo tri = info as TreeInfo;
 			if(tri != null) 
 			{
-				checkItemClass = tri.m_class.name;
+				checkService = tri.m_class.m_service.ToString();
 			}
 			VehicleInfo vi = info as VehicleInfo;
 			if(vi != null) 
 			{
-				checkItemClass = vi.m_class.name;
+				checkService = vi.m_class.m_service.ToString();
 			}
-			ItemClassPanel.m_itemClassDropDown.selectedIndex = Array.IndexOf(ItemClassPanel.m_itemClassDropDown.items, checkItemClass);
+			servicePanel.m_serviceDropDown.selectedIndex = Array.IndexOf(servicePanel.m_serviceDropDown.items, checkService);
 		}
 
-		// Attempts to matches the selected item class name with an actual ItemClass.
-		private void ApplyNewItemClass(UIComponent component, UIMouseEventParameter eventParam) 
+		// Attempts to matches the selected item class service with the selected service.
+		private void ApplyNewService(UIComponent component, UIMouseEventParameter eventParam) 
 		{
 			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
 			foreach(ItemClassCollection collection in FindObjectsOfType<ItemClassCollection>()) 
 			{
 				foreach(ItemClass itemClass in collection.m_classes)
 				{
-					if(ItemClassPanel.m_itemClassDropDown.selectedValue == itemClass.name)
+					if(servicePanel.m_serviceDropDown.selectedValue == itemClass.m_service.ToString())
 					{
 						BuildingInfo bi = info as BuildingInfo;
 						if(bi != null) 
 						{
-							bi.m_class = itemClass;
+							bi.m_class.m_service = itemClass.m_service;
 						}
 						NetInfo ni = info as NetInfo;
 						if(ni != null) 
 						{
-							ni.m_class = itemClass;
+							ni.m_class.m_service = itemClass.m_service;
 						}
 						PropInfo pi = info as PropInfo;
 						if(pi != null) 
 						{
-							pi.m_class = itemClass;
+							pi.m_class.m_service = itemClass.m_service;
 						}
 						TransportInfo ti = info as TransportInfo;
 						if(ti != null) 
 						{
-							ti.m_class = itemClass;
+							ti.m_class.m_service = itemClass.m_service;
 						}
 						TreeInfo tri = info as TreeInfo;
 						if(tri != null) 
 						{
-							tri.m_class = itemClass;
+							tri.m_class.m_service = itemClass.m_service;
 						}
 						VehicleInfo vi = info as VehicleInfo;
 						if(vi != null) 
 						{
-							vi.m_class = itemClass;
+							vi.m_class.m_service = itemClass.m_service;
 						}
 						return;
 					}

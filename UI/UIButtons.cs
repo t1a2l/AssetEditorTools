@@ -64,5 +64,6 @@ namespace AssetEditorTools.UI
 
             return button;
         }
+
     } 
 }
