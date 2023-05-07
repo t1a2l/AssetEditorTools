@@ -13,6 +13,8 @@ namespace AssetEditorTools
 
 		private ItemClassPanel ItemClassPanel;
 
+		private ItemClassGroupContianerPanel ItemClassGroupContianerPanel;
+
 		public static Dictionary<string, GroupInfo> m_GroupStates = new();
 
 		public struct GroupInfo
@@ -30,7 +32,9 @@ namespace AssetEditorTools
 			
 			ItemClassPanel = m_view.FindUIComponent<ItemClassPanel>("ItemClassPanel");
 
-			ItemClassPanel.uibutton.eventClicked += OnGroupClicked;
+			ItemClassGroupContianerPanel = m_view.FindUIComponent<ItemClassGroupContianerPanel>("ItemClassGroupContianerPanel");
+
+			ItemClassPanel.m_toggle.eventClicked += OnGroupClicked;
 
 			ItemClassPanel.m_itemClassApplyButton.eventClicked += ApplyNewItemClass;
 
@@ -135,8 +139,8 @@ namespace AssetEditorTools
 				groupInfo = new GroupInfo
 				{
 					m_Folded = true,
-					m_Container = ItemClassPanel.GroupContainer,
-					m_PropertyContainer = ItemClassPanel.GroupContainer
+					m_Container = ItemClassGroupContianerPanel,
+					m_PropertyContainer = ItemClassGroupContianerPanel
 				};
 				m_GroupStates.Add("ItemClassGroup", groupInfo);
 			}

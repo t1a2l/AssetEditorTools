@@ -2,15 +2,12 @@
 using AssetEditorTools.UI;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace AssetEditorTools
 {
 	public class ItemClassPanel : UIPanel
 	{
-		public UIPanel GroupContainer;
-
-		public UIButton uibutton;
+		public UIButton m_toggle;
 		public UIDropDown m_itemClassDropDown;
 		public UIButton m_itemClassApplyButton;
 	
@@ -24,18 +21,18 @@ namespace AssetEditorTools
 			width = 393;
 			height = 25;
 
-			GroupContainer = AddGroupConatinerPanel();
+			var m_view = UIView.GetAView();
 
-			var servicePanel = GroupContainer.AddUIComponent<ServicePanel>();
-			GroupContainer.AttachUIComponent(servicePanel.gameObject);
+			m_toggle =  UIButtons.AddButton(this, 0.0f, 2.0f, "", 20.0f, 20.0f, 0.7f, 4, "Extra ItemClass options");
+			m_toggle.name = "Toggle";
+			m_toggle.atlas = m_view.defaultAtlas;
+			m_toggle.normalBgSprite = "PropertyGroupClosed";
+            m_toggle.hoveredBgSprite = "";
+            m_toggle.focusedBgSprite = "";
+            m_toggle.pressedBgSprite = "";
+            m_toggle.disabledBgSprite = "";
 
-			var subServicePanel = AddUIComponent<SubServicePanel>();
-			GroupContainer.AttachUIComponent(subServicePanel.gameObject);
-
-			var levelPanel = AddUIComponent<LevelPanel>();
-			GroupContainer.AttachUIComponent(levelPanel.gameObject);
-
-			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "ItemClass", 180.0f, 25.0f, 0.7f, 20, 8, true, "Item Class determines the Service SubService and building category.");
+			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "ItemClass", 180.0f, 25.0f, 0.7f, 20, 8, true, "ItemClass determines the Service SubService and building category.");
 			m_itemClassApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 
 			PopulateItemClassDropDown();
@@ -63,31 +60,5 @@ namespace AssetEditorTools
 			m_itemClassDropDown.selectedIndex = 0;
 		}
 
-		
-		private UIPanel AddGroupConatinerPanel()
-		{
-			var view = UIView.GetAView();
-			var FullScreenContainer = view.FindUIComponent("FullScreenContainer");
-			var DecorationProperties = FullScreenContainer.Find<UIPanel>("DecorationProperties");
-			var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
-			UIComponent uicomponent = Container.AttachUIComponent(UITemplateManager.GetAsGameObject("GroupPropertySet"));
-			uibutton = uicomponent.Find<UIButton>("Toggle");
-			uibutton.text = "";
-			uibutton.stringUserData = "ItemClassData";
-			uibutton.normalFgSprite = "PropertyGroupClosed";
-			uibutton.transform.SetParent(transform);
-			uibutton.relativePosition = new Vector2(3.0f, 0.0f);
-			UIPanel uipanel = uicomponent.Find<UIPanel>("GroupContainer");
-			uipanel.Hide();
-			uipanel.size = new Vector2(uipanel.size.x, 0f);
-			ItemClassEditorController.m_GroupStates.Add("ItemClassData", new ItemClassEditorController.GroupInfo
-			{
-				m_Folded = true,
-				m_Container = uicomponent,
-				m_PropertyContainer = uipanel
-			});
-			width = uipanel.size.x - uipanel.autoLayoutPadding.horizontal;
-			return uipanel;
-		}
 	}
 }
