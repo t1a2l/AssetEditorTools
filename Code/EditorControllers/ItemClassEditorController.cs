@@ -15,6 +15,8 @@ namespace AssetEditorTools
 
 		private ItemClassGroupContianerPanel ItemClassGroupContianerPanel;
 
+		private UIComponent GroupContianer;
+
 		public static Dictionary<string, GroupInfo> m_GroupStates = new();
 
 		public struct GroupInfo
@@ -29,10 +31,14 @@ namespace AssetEditorTools
 		public void Start()
 		{
 			m_view = UIView.GetAView();
+			var FullScreenContainer = m_view.FindUIComponent("FullScreenContainer");
+			var DecorationProperties = FullScreenContainer.Find<UIPanel>("DecorationProperties");
+			var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
 			
 			ItemClassPanel = m_view.FindUIComponent<ItemClassPanel>("ItemClassPanel");
 
-			ItemClassGroupContianerPanel = m_view.FindUIComponent<ItemClassGroupContianerPanel>("ItemClassGroupContianerPanel");
+			ItemClassGroupContianerPanel = Container.AddUIComponent<ItemClassGroupContianerPanel>();
+            GroupContianer = ItemClassPanel.AttachUIComponent(ItemClassGroupContianerPanel.gameObject);
 
 			ItemClassPanel.m_toggle.eventClicked += OnGroupClicked;
 
@@ -139,7 +145,7 @@ namespace AssetEditorTools
 				groupInfo = new GroupInfo
 				{
 					m_Folded = true,
-					m_Container = ItemClassGroupContianerPanel,
+					m_Container = GroupContianer,
 					m_PropertyContainer = ItemClassGroupContianerPanel
 				};
 				m_GroupStates.Add("ItemClassGroup", groupInfo);

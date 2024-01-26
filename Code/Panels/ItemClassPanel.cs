@@ -23,8 +23,9 @@ namespace AssetEditorTools
 
 			var m_view = UIView.GetAView();
 
-			m_toggle =  UIButtons.AddButton(this, 0.0f, 2.0f, "", 20.0f, 20.0f, 0.7f, 4, "Extra ItemClass options");
+			m_toggle = UIButtons.AddButton(this, 0.0f, 2.0f, "", 20.0f, 20.0f, 0.7f, 4, "Extra ItemClass options");
 			m_toggle.name = "Toggle";
+			m_toggle.stringUserData = "ItemClassGroup";
 			m_toggle.atlas = m_view.defaultAtlas;
 			m_toggle.normalBgSprite = "PropertyGroupClosed";
             m_toggle.hoveredBgSprite = "";
@@ -32,7 +33,7 @@ namespace AssetEditorTools
             m_toggle.pressedBgSprite = "";
             m_toggle.disabledBgSprite = "";
 
-			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "ItemClass", 180.0f, 25.0f, 0.7f, 20, 8, true, "ItemClass determines the Service SubService and building category.");
+			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "ItemClass", 180.0f, 25.0f, 0.7f, 20, 8, true, "ItemClass determines the Service, SubService and Building Category.");
 			m_itemClassApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 
 			PopulateItemClassDropDown();

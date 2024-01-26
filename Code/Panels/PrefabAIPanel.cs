@@ -40,7 +40,7 @@ namespace AssetEditorTools
 
 		private void PopulateAIDropDown()
 		{
-			List<string> PrefabAI = new();
+			List<string> PrefabAI = [];
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies()) 
 			{
 				Type[] assemblyTypes = a.GetTypes();

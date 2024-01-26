@@ -25,9 +25,6 @@ namespace AssetEditorTools
 			        var itemClassPanel = Container.AddUIComponent<ItemClassPanel>();
                     Container.AttachUIComponent(itemClassPanel.gameObject);
 
-                    var itemClassGroupContianerPanel = Container.AddUIComponent<ItemClassGroupContianerPanel>();
-                    itemClassPanel.AttachUIComponent(itemClassGroupContianerPanel.gameObject);
-
                     var uICategoryPanel = Container.AddUIComponent<UICategoryPanel>();
                     Container.AttachUIComponent(uICategoryPanel.gameObject);
 
