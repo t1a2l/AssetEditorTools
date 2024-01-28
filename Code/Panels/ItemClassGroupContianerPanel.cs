@@ -17,7 +17,7 @@ namespace AssetEditorTools
 			clipChildren = true;
 
 			width = 393;
-            height = 35;
+            height = 45;
 
             var itemClassPanel = AddUIComponent<ItemClassPanel>();
             AttachUIComponent(itemClassPanel.gameObject);

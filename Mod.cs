@@ -22,6 +22,10 @@ namespace AssetEditorTools
 			        var DecorationProperties = FullScreenContainer.Find<UIPanel>("DecorationProperties");
 			        var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
 
+                    var PanelLayout = DecorationProperties.Find<UIPanel>("PanelLayout");
+
+                    PanelLayout.relativePosition = new UnityEngine.Vector3 (0, 85, 0);
+
                     var itemClassGroupContianerPanel = Container.AddUIComponent<ItemClassGroupContianerPanel>();
                     Container.AttachUIComponent(itemClassGroupContianerPanel.gameObject);
 

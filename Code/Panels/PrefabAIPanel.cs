@@ -26,7 +26,7 @@ namespace AssetEditorTools
 			backgroundSprite = "SubcategoriesPanel";
 			clipChildren = true;
 
-			prefabAIList = new();
+			prefabAIList = [];
 
 			width = 393;
 			height = 35;
@@ -41,26 +41,33 @@ namespace AssetEditorTools
 		private void PopulateAIDropDown()
 		{
 			List<string> PrefabAI = [];
-			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies()) 
+			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				Type[] assemblyTypes = a.GetTypes();
-				for (int j = 0; j < assemblyTypes.Length; j++) 
+				try
 				{
-					if (assemblyTypes[j].IsSubclassOf(typeof (PrefabAI))) 
-					{
-						PrefabAIInfo prefabAIInfo = new() 
-						{
-							name =  assemblyTypes[j].Name,
-							type = assemblyTypes[j]	
-						};
-						prefabAIList.Add(prefabAIInfo);
+                    Type[] assemblyTypes = assembly.GetTypes();
+                    for (int j = 0; j < assemblyTypes.Length; j++)
+                    {
+                        if (assemblyTypes[j].IsSubclassOf(typeof(PrefabAI)))
+                        {
+                            PrefabAIInfo prefabAIInfo = new()
+                            {
+                                name = assemblyTypes[j].Name,
+                                type = assemblyTypes[j]
+                            };
+                            prefabAIList.Add(prefabAIInfo);
 
-						PrefabAI.Add(assemblyTypes[j].Name);
-					}
-				}
-			}
+                            PrefabAI.Add(assemblyTypes[j].Name);
+                        }
+                    }
+                }
+				catch 
+				{
+                    // ignored
+                }
+            }
 
-			PrefabAI.Sort();
+            PrefabAI.Sort();
 
 			foreach(string prefabAI in PrefabAI) 
 			{

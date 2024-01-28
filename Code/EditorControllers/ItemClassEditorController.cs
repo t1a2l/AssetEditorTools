@@ -143,7 +143,7 @@ namespace AssetEditorTools
                     Vector2 size2 = groupInfo.m_Container.size;
                     size2.y = val;
                     groupInfo.m_Container.size = size2;
-                }, new AnimatedFloat(UITemplateManager.Peek("GroupPropertySet").size.y, endValue, 0.2f));
+                }, new AnimatedFloat(UITemplateManager.Peek("GroupPropertySet").size.y + 10, endValue, 0.2f));
             }
             else
             {
@@ -154,7 +154,7 @@ namespace AssetEditorTools
                     Vector2 size = groupInfo.m_Container.size;
                     size.y = val;
                     groupInfo.m_Container.size = size;
-                }, new AnimatedFloat(startValue, UITemplateManager.Peek("GroupPropertySet").size.y, 0.2f), delegate
+                }, new AnimatedFloat(startValue, UITemplateManager.Peek("GroupPropertySet").size.y + 10, 0.2f), delegate
                 {
                     container.Hide();
                 });
@@ -166,7 +166,7 @@ namespace AssetEditorTools
         private float CalculateHeight(UIPanel container)
         {
             float num = 0f;
-            num += UITemplateManager.Peek("GroupPropertySet").size.y;
+            num += UITemplateManager.Peek("GroupPropertySet").size.y + 10;
             return num + CalculatePropertiesHeight(container);
         }
 
