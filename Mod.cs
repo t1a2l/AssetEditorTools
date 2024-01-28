@@ -22,8 +22,8 @@ namespace AssetEditorTools
 			        var DecorationProperties = FullScreenContainer.Find<UIPanel>("DecorationProperties");
 			        var Container = DecorationProperties.Find<UIScrollablePanel>("Container");
 
-			        var itemClassPanel = Container.AddUIComponent<ItemClassPanel>();
-                    Container.AttachUIComponent(itemClassPanel.gameObject);
+                    var itemClassGroupContianerPanel = Container.AddUIComponent<ItemClassGroupContianerPanel>();
+                    Container.AttachUIComponent(itemClassGroupContianerPanel.gameObject);
 
                     var uICategoryPanel = Container.AddUIComponent<UICategoryPanel>();
                     Container.AttachUIComponent(uICategoryPanel.gameObject);

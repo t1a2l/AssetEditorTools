@@ -17,9 +17,11 @@ namespace AssetEditorTools
 			clipChildren = true;
 
 			width = 393;
-			height = 25;
+			height = 35;
 
-			m_subServiceDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "SubService", 180.0f, 25.0f, 0.7f, 20, 8, true, "Allow you to change the Asset Sub Service");
+            relativePosition = new UnityEngine.Vector3(0f, 25f, 0f);
+
+            m_subServiceDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "SubService", 180.0f, 25.0f, 0.7f, 20, 8, true, "Allow you to change the Asset Sub Service");
 			m_subServiceApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 			PopulateSubServiceDropDown();
 

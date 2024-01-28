@@ -17,7 +17,9 @@ namespace AssetEditorTools
 			clipChildren = true;
 
 			width = 393;
-			height = 25;
+			height = 35;
+
+			relativePosition = new UnityEngine.Vector3 (0f, 0f, 0f);
 
 			m_serviceDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "Service", 180.0f, 25.0f, 0.7f, 20, 8, true, "Allow you to change the Asset Service");
 			m_serviceApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);

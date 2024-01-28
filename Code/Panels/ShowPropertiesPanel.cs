@@ -17,7 +17,7 @@ namespace AssetEditorTools
 			clipChildren = true;
 
 			width = 393;
-			height = 25;
+			height = 35;
 
 			m_showPropertiesButton = UIButtons.AddButton(this, 150.0f, 0.0f, "Hide Properties", 150.0f, 25.0f, 0.9f, 4, "Properties");
 

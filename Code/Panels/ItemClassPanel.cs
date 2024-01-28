@@ -8,10 +8,12 @@ namespace AssetEditorTools
 	public class ItemClassPanel : UIPanel
 	{
 		public UIButton m_toggle;
+
 		public UIDropDown m_itemClassDropDown;
+
 		public UIButton m_itemClassApplyButton;
-	
-		public override void Start() 
+
+        public override void Start() 
 		{ 
 			base.Start();
 
@@ -19,7 +21,9 @@ namespace AssetEditorTools
 			clipChildren = true;
 
 			width = 393;
-			height = 25;
+			height = 35;
+
+			relativePosition = new UnityEngine.Vector3 (0, 0, 0);
 
 			var m_view = UIView.GetAView();
 
@@ -36,7 +40,7 @@ namespace AssetEditorTools
 			m_itemClassDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "ItemClass", 180.0f, 25.0f, 0.7f, 20, 8, true, "ItemClass determines the Service, SubService and Building Category.");
 			m_itemClassApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
 
-			PopulateItemClassDropDown();
+            PopulateItemClassDropDown();
 
 			gameObject.AddComponent<ItemClassEditorController>();
 		}

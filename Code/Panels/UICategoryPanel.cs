@@ -29,7 +29,7 @@ namespace AssetEditorTools
 			categoryList = new();
 
 			width = 393;
-			height = 25;
+			height = 35;
 
 			m_UICategoryDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "UICategory", 180.0f, 25.0f, 0.7f, 25, 8, true, "Category determines the tab an asset will appear under.");
 			m_UICategoryApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
