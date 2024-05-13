@@ -2,6 +2,7 @@
 using AssetEditorTools.UI;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace AssetEditorTools
 {
@@ -47,14 +48,14 @@ namespace AssetEditorTools
 
 		private void PopulateItemClassDropDown() 
 		{
-			var sortItemClasses = new List<ItemClass>();
-			foreach(ItemClassCollection collection in FindObjectsOfType<ItemClassCollection>()) 
-			{
-				foreach(ItemClass itemClass in collection.m_classes) 
-				{
-					sortItemClasses.Add(itemClass);
-				}
-			}
+            var dictionary = (Dictionary<string, ItemClass>)typeof(ItemClassCollection).GetField("m_classDict", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+            var sortItemClasses = new List<ItemClass>();
+
+            foreach (var kvp in dictionary)
+            {
+                sortItemClasses.Add(kvp.Value);
+            }
+
 			var sortedItemClasses = sortItemClasses.OrderBy(s => s.name).ThenBy(s => (int) s.m_service).ThenBy(s => (int) s.m_subService).ThenBy(s => (int) s.m_level);
 
 			foreach(ItemClass itemClass in sortedItemClasses) 

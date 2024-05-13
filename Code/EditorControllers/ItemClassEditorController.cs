@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using ColossalFramework;
 using ColossalFramework.UI;
 using UnityEngine;
@@ -77,50 +79,46 @@ namespace AssetEditorTools
 		// Attempts to matches the selected item class name with an actual ItemClass.
 		private void ApplyNewItemClass(UIComponent component, UIMouseEventParameter eventParam)
 		{
-			ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
-			foreach (ItemClassCollection collection in FindObjectsOfType<ItemClassCollection>())
-			{
-				foreach (ItemClass itemClass in collection.m_classes)
-				{
-					if (itemClassPanel.m_itemClassDropDown.selectedValue == itemClass.name)
-					{
-						BuildingInfo bi = info as BuildingInfo;
-						if (bi != null)
-						{
-							bi.m_class = itemClass;
-						}
-						NetInfo ni = info as NetInfo;
-						if (ni != null)
-						{
-							ni.m_class = itemClass;
-						}
-						PropInfo pi = info as PropInfo;
-						if (pi != null)
-						{
-							pi.m_class = itemClass;
-						}
-						TransportInfo ti = info as TransportInfo;
-						if (ti != null)
-						{
-							ti.m_class = itemClass;
-						}
-						TreeInfo tri = info as TreeInfo;
-						if (tri != null)
-						{
-							tri.m_class = itemClass;
-						}
-						VehicleInfo vi = info as VehicleInfo;
-						if (vi != null)
-						{
-							vi.m_class = itemClass;
-						}
-						return;
-					}
-				}
-
-			}
-
-		}
+            var dictionary = (Dictionary<string, ItemClass>)typeof(ItemClassCollection).GetField("m_classDict", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+            ref PrefabInfo info = ref m_toolController.m_editPrefabInfo;
+            foreach (var itemClass in dictionary)
+            {
+                if (itemClassPanel.m_itemClassDropDown.selectedValue == itemClass.Key)
+                {
+                    BuildingInfo bi = info as BuildingInfo;
+                    if (bi != null)
+                    {
+                        bi.m_class = itemClass.Value;
+                    }
+                    NetInfo ni = info as NetInfo;
+                    if (ni != null)
+                    {
+                        ni.m_class = itemClass.Value;
+                    }
+                    PropInfo pi = info as PropInfo;
+                    if (pi != null)
+                    {
+                        pi.m_class = itemClass.Value;
+                    }
+                    TransportInfo ti = info as TransportInfo;
+                    if (ti != null)
+                    {
+                        ti.m_class = itemClass.Value;
+                    }
+                    TreeInfo tri = info as TreeInfo;
+                    if (tri != null)
+                    {
+                        tri.m_class = itemClass.Value;
+                    }
+                    VehicleInfo vi = info as VehicleInfo;
+                    if (vi != null)
+                    {
+                        vi.m_class = itemClass.Value;
+                    }
+                    return;
+                }
+            }
+        }
         private void OnGroupClicked(UIComponent comp, UIMouseEventParameter p)
         {
             UIButton uIButton = p.source as UIButton;
