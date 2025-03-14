@@ -2,6 +2,7 @@
 using System;
 using AssetEditorTools.Utils;
 using ColossalFramework.UI;
+using AssetEditorTools.Panels;
 
 namespace AssetEditorTools
 {

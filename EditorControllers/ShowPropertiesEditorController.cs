@@ -1,7 +1,8 @@
-﻿using ColossalFramework.UI;
+﻿using AssetEditorTools.Panels;
+using ColossalFramework.UI;
 using UnityEngine;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.EditorControllers
 {
 	public class ShowPropertiesEditorController : MonoBehaviour
 	{

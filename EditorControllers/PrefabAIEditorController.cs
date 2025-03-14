@@ -4,8 +4,9 @@ using UnityEngine;
 using AssetEditorTools.Utils;
 using Object = UnityEngine.Object;
 using System.Reflection;
+using AssetEditorTools.Panels;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.EditorControllers
 {
 	public class PrefabAIEditorController : MonoBehaviour
 	{
@@ -41,7 +42,7 @@ namespace AssetEditorTools
 				var index = PrefabAIPanel.prefabAIList.FindIndex(x => x.type.Name == prefabAIPanel.m_PrefabAIDropDown.selectedValue);
 
 				var oldAI = info.GetComponent<PrefabAI>();
-                Object.DestroyImmediate(oldAI);
+                DestroyImmediate(oldAI);
                 var newAI = (PrefabAI)info.gameObject.AddComponent(PrefabAIPanel.prefabAIList[index].type);
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
 

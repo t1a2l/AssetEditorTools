@@ -1,6 +1,7 @@
-﻿using ColossalFramework.UI;
+﻿using AssetEditorTools.Panels.GroupContainer;
+using ColossalFramework.UI;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.Panels
 {
 	public class GroupContianerPanel : UIPanel
 	{

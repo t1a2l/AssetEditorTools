@@ -1,8 +1,9 @@
 ﻿using System;
+using AssetEditorTools.Panels.GroupContainer;
 using ColossalFramework.UI;
 using UnityEngine;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.EditorControllers.GroupContainer
 {
 	public class ServiceEditorController : MonoBehaviour
 	{

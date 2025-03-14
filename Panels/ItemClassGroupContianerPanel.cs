@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static DecorationPropertiesPanel;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.Panels
 {
 	public class ItemClassGroupContianerPanel : UIPanel
 	{

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using AssetEditorTools.Panels;
 using ColossalFramework;
 using ColossalFramework.UI;
 using UnityEngine;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.EditorControllers
 {
 	public class ItemClassEditorController : MonoBehaviour
 	{
@@ -130,7 +131,7 @@ namespace AssetEditorTools
             {
                 return;
             }
-            uIButton.normalBgSprite = ((!groupInfo.m_Folded) ? "PropertyGroupClosed" : "PropertyGroupOpen");
+            uIButton.normalBgSprite = !groupInfo.m_Folded ? "PropertyGroupClosed" : "PropertyGroupOpen";
             if (groupInfo.m_Folded)
             {
                 UIPanel propertyContainer = groupInfo.m_PropertyContainer;
@@ -173,7 +174,7 @@ namespace AssetEditorTools
             float num = 0f;
             for (int i = 0; i < comp.childCount; i++)
             {
-                num += comp.components[i].size.y + (float)comp.autoLayoutPadding.vertical;
+                num += comp.components[i].size.y + comp.autoLayoutPadding.vertical;
             }
             return num;
         }

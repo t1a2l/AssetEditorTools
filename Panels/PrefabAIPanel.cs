@@ -3,8 +3,9 @@ using AssetEditorTools.UI;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
+using AssetEditorTools.EditorControllers;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.Panels
 {
 	public class PrefabAIPanel : UIPanel
 	{

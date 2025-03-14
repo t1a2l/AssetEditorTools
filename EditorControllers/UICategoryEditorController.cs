@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using AssetEditorTools.Panels;
 using ColossalFramework.UI;
 using UnityEngine;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.EditorControllers
 {
 	public class UICategoryEditorController : MonoBehaviour
 	{

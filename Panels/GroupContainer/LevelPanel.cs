@@ -1,8 +1,11 @@
 ﻿using ColossalFramework.UI;
 using AssetEditorTools.UI;
 using System.Collections.Generic;
+using UnityEngine;
+using System;
+using AssetEditorTools.EditorControllers.GroupContainer;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.Panels.GroupContainer
 {
 	public class LevelPanel : UIPanel
 	{
@@ -19,7 +22,7 @@ namespace AssetEditorTools
 			width = 393;
 			height = 35;
 
-            relativePosition = new UnityEngine.Vector3(0f, 70f, 0f);
+            relativePosition = new Vector3(0f, 70f, 0f);
 
             m_levelDropDown = UIDropDowns.AddLabelledDropDown(this, 20.0f, 0.0f, "Level", 180.0f, 25.0f, 0.7f, 20, 8, true, "Allow you to change the Asset Level");
 			m_levelApplyButton = UIButtons.AddButton(this, 300.0f, 0.0f, "Apply", 90.0f, 30.0f, 0.9f, 4);
@@ -42,14 +45,15 @@ namespace AssetEditorTools
 					}
 				}
 			}
-			sortLevels.Sort();
 
 			foreach(ItemClass.Level level in sortLevels) 
 			{
 				m_levelDropDown.AddItem(level.ToString());
 			}
 
-			m_levelDropDown.selectedIndex = 0;
+            Array.Sort(m_levelDropDown.items);
+
+            m_levelDropDown.selectedIndex = 0;
 		}
 
 	}

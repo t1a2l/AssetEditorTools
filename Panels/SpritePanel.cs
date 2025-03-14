@@ -1,7 +1,8 @@
 ﻿using ColossalFramework.UI;
 using AssetEditorTools.UI;
+using AssetEditorTools.EditorControllers;
 
-namespace AssetEditorTools
+namespace AssetEditorTools.Panels
 {
 	public class SpritePanel : UIPanel
 	{
